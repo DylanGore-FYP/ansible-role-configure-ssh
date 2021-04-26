@@ -16,6 +16,8 @@ An Ansible role to configure SSH and setup SSH keys for a given user.
 
 The example playbook below shows the basic usage of this role.
 
+playbook.yml
+
 ```yaml
 - hosts: servers
   become: true
@@ -25,4 +27,12 @@ The example playbook below shows the basic usage of this role.
       ssh_keys:
         - '../files/key1.pub'
         - '../files/key2.pub'
+```
+
+requirements.yml
+
+```yaml
+- name: configure_ssh
+  src: https://github.com/DylanGore-FYP/ansible-role-configure-ssh.git
+  version: v1.0.0
 ```
