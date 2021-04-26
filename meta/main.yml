@@ -1,0 +1,16 @@
+galaxy_info:
+  role_name: configure_ssh
+  author: Dylan Gore
+  description: An Ansible role to configure SSH and setup SSH keys for a given user
+
+  min_ansible_version: 2.1
+
+  platforms:
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+
+  galaxy_tags: []

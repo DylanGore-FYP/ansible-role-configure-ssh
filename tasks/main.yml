@@ -1,0 +1,20 @@
+---
+# tasks file for configure_ssh
+- name: SSH - Require public key authentication
+  ansible.builtin.lineinfile: dest=/etc/ssh/sshd_config regexp='^#?AuthenticationMethods' line='AuthenticationMethods publickey'
+  when: ssh_require_key_auth
+- name: SSH - Disable password authentication
+  ansible.builtin.lineinfile: dest=/etc/ssh/sshd_config regexp='^#?PasswordAuthentication' line='PasswordAuthentication no'
+  when: ssh_require_key_auth
+- name: SSH - Disable challenge response authentication
+  ansible.builtin.lineinfile: dest=/etc/ssh/sshd_config regexp='^#?ChallengeResponseAuthentication' line='ChallengeResponseAuthentication no'
+  when: ssh_require_key_auth
+- name: SSH - Enable public key authentication
+  ansible.builtin.lineinfile: dest=/etc/ssh/sshd_config regexp='^#?PubkeyAuthentication' line='PubkeyAuthentication yes'
+  when: ssh_require_key_auth
+- name: Setup authorized keys from file(s)
+  ansible.posix.authorized_key:
+    user: '{{ ssh_key_user }}'
+    state: present
+    key: '{{ item }}'
+  with_file: '{{ ssh_keys }}'

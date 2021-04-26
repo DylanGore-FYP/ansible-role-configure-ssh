@@ -1,0 +1,26 @@
+name: 'Lint Ansible Role'
+
+on:
+  push:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    env:
+      ANSIBLE_ROLES_PATH: ../
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - name: Install/update pip
+        run: python3 -m pip install --upgrade pip
+      - name: Install ansible and ansible-lint
+        run: python3 -m pip install ansible ansible-lint
+      - name: Run ansible-lint
+        run: ansible-lint . -x meta-no-info,role-name
+      - name: Check test playbook syntax
+        run: ansible-playbook -i tests/inventory tests/test.yml --syntax-check
+      - name: Run test playbook in check mode
+        run: ansible-playbook -i tests/inventory tests/test.yml --check

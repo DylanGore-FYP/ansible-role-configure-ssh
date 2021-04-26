@@ -1,0 +1,5 @@
+---
+# defaults file for configure_ssh
+ssh_require_key_auth: true
+ssh_key_user: '{{ ansible_ssh_user }}'
+ssh_keys: []
