@@ -1,4 +1,4 @@
-name: 'Lint Ansible Role'
+name: lint
 
 on:
   push:
